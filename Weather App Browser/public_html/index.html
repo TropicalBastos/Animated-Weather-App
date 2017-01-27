@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="mainApp" ng-cloak>
+    <head>
+        <title>Weather App</title>
+        <link rel="stylesheet" type="text/css" href="weather.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+        <script src="main.js"></script>
+        <script src="effects.js"></script>
+    </head>
+    <body>
+        <div id="container" ng-controller="mainCtrl">
+            <nav id="navWrapper">
+                <div class="navbar" ng-controller="cityCtrl">
+                    <h1>{{localOrNon}}</h1>
+                    <div id="searchListWrapper">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search weather by location" class="searchBox"/>
+                    <ol>
+                        <!-- avoid dupes -->
+                        <li ng-repeat="c in cityList track by $index">
+                            <div class="listDiv" ng-click="replaceSearchText(c.city)">
+                                <p>{{c.city}}</p></div>
+                        </li>
+                    </ol>
+                    </div>
+                </div>
+            </nav>
+            <div id="weatherTextWrapper">
+                <table>
+                    <tr>
+                        <th id="locationName">{{city}}</th>
+                    </tr>
+                    <tr>
+                        <th>{{temperature}}</th>
+                    </tr>
+                    <tr>
+                        <th id="weather">
+                            {{weather}}
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        <div id="weatherWrapper">
+        <div class="cloud rainy">
+             <div class="rain" style="z-index: -1000; position: relative; top: 48px;"></div>
+        </div>
+            <div class="cloud windy"></div>
+            <div class="cloud windy"></div>
+            <div class="cloud cloudy"></div>
+        <div class="sun sunny" style="position: relative;margin-left: -28px;">
+            <div class="rays"></div>
+        </div>
+        <div class="cloud snowy">
+            <div class="flake" style="position: relative; 
+                 transform: rotate(-80deg) scale(2.0);top: 60px;left: -15px;"></div>
+                 <div class="flake" style="position: relative; 
+                 transform: rotate(-130deg);top: 112px;left: -15px;"></div>
+        </div>
+            <div class="cloud thunder">
+            <div class="bolt" style="position: relative;top: 90px;left: -0px"></div>
+        </div>
+        </div>
+        </div>
+    </body>
+</html>
