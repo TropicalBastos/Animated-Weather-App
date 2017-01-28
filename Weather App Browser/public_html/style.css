@@ -30,6 +30,8 @@ a{
 ol{
     list-style-type: none;
     margin: 0;
+    position: relative;
+    top: 0px;
 }
 
 .listDiv{
@@ -185,5 +187,10 @@ canvas{
     }
     .navbar{
         height: 14%;
+    }
+}
+@media screen and (min-width: 1000px){
+    .searchBox{
+        right: 30px;
     }
 }
