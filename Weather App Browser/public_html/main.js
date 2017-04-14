@@ -15,17 +15,17 @@ var mainApp = angular.module('mainApp',[]).config(function($sceDelegateProvider)
 
 
 mainApp.controller('mainCtrl',['$scope','$http',function($scope,$http){
-        
+
         var units = "&units=metric";
         $scope.localOrNon = "Local Weather";
-        
+
            navigator.geolocation.getCurrentPosition(function(position) {
            var lat = position.coords.latitude;
            var lon = position.coords.longitude;
            var bridge = "&lon=";
            $http.get(baseUrl+lat+bridge+lon+units+apiKey).success(connectionSuccess);
         });
-    
+
     function connectionSuccess(data){
         for(var cs in cssClasses){
             $(cssClasses[cs]).css('display','none');
@@ -38,26 +38,30 @@ mainApp.controller('mainCtrl',['$scope','$http',function($scope,$http){
         $scope.weather = toTitleCase(data.weather[0].description);
         $scope.temperature = Math.round(data.main.temp)+"°C";
     }
-    
+
     $(document).on("keydown",function(e){
       if(e.keyCode===13){
           if($(".searchBox").is(":focus")){
               $scope.connectCity();
           }
       }
-      
+
+      $("#hidden").click(function(){
+        $scope.connectCity();
+      });
+
       $scope.connectCity = function(){
           var location = $(".searchBox").val();
           $http.get(baseUrlSearch+location+units+apiKey).success(connectionSuccess);
           $scope.localOrNon = "Non Local Weather";
       };
    });
-    
+
 }]);
 
 mainApp.controller('cityCtrl',['$scope',function($scope){
         $scope.cityList = cityArray;
-        
+
         $(".searchBox").on('input',function(){
             if($(this).val()){
                 filterCities($(this).val());
@@ -67,20 +71,26 @@ mainApp.controller('cityCtrl',['$scope',function($scope){
             reset();
             }
         });
-        
+
         //reset city array on blur so that the list disappears
         $(".searchBox").on('blur',function(){
             $("ol").mouseleave(function(){
                 reset();
             });
         });
-        
+
+        $(document).on('click',function(e){
+          if(e.target!=$("ol")[0]){
+            reset();
+          }
+        });
+
         function reset(){
             cityArray = [];
             $scope.cityList = cityArray;
             $scope.$apply();
         }
-        
+
         //replaces search text with what the user clicks on
         $scope.replaceSearchText = function(t){
             $(".searchBox").val(t);
@@ -91,7 +101,7 @@ mainApp.controller('cityCtrl',['$scope',function($scope){
 //converting api weather codes to css class names
 function weatherDecode(i){
     var weather = "";
-    
+
     if(i>=200&&i<=232)
         weather = "thunder";
     if(i>=300&&i<=321)
@@ -110,7 +120,7 @@ function weatherDecode(i){
         weather = "thunder";
     if(i>=951&&i<=962)
         weather = "windy";
-    
+
     return "."+weather;
 }
 
@@ -146,7 +156,8 @@ function getUrlVars() {
 
 //events
 $(document).ready(function(){
-   $(".fa-search").click(function(){
+
+   $("#clickMe").click(function(){
        $(".searchBox").css('display','block');
        $(".searchBox").focus();
        $(this).fadeOut(500,function(){
@@ -154,7 +165,10 @@ $(document).ready(function(){
                $(".searchBox").css({display:'block',width: '210px'});
            },100);
        });
+       $("#hidden").css('display','block');
+       $("#hidden").addClass("fadeinhidden");
    });
+
    $(document).on('keydown',function(e){
        var current;
        if(e.keyCode===40){
@@ -170,6 +184,7 @@ $(document).ready(function(){
            setTextFromList(current.find("p").html());
        }
    });
+
    $(document).on('keyup',function(e){
        var current;
        if(e.keyCode===38){

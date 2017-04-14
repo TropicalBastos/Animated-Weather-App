@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html ng-app="mainApp" ng-cloak>
     <head>
         <title>Weather App</title>
@@ -24,7 +19,8 @@ and open the template in the editor.
                 <div class="navbar" ng-controller="cityCtrl">
                     <h1>{{localOrNon}}</h1>
                     <div id="searchListWrapper">
-                    <i class="fa fa-search"></i>
+                    <i class="fa fa-search" id="clickMe"></i>
+                    <i id="hidden" class="fa fa-search"></i>
                     <input type="text" placeholder="Search weather by location" class="searchBox"/>
                     <ol>
                         <!-- avoid dupes -->
@@ -62,9 +58,9 @@ and open the template in the editor.
             <div class="rays"></div>
         </div>
         <div class="cloud snowy">
-            <div class="flake" style="position: relative; 
+            <div class="flake" style="position: relative;
                  transform: rotate(-80deg) scale(2.0);top: 60px;left: -15px;"></div>
-                 <div class="flake" style="position: relative; 
+                 <div class="flake" style="position: relative;
                  transform: rotate(-130deg);top: 112px;left: -15px;"></div>
         </div>
             <div class="cloud thunder">
