@@ -88,7 +88,11 @@ ol{
     border-style: none;
     font-size: 15px;
     font-family: 'PT Sans Caption';
-    color: #b3b6bc;
+    color: #e1ecff;
+}
+
+input::placeholder{
+  color: #e1ecff;
 }
 
 .searchBox:focus{
@@ -125,7 +129,7 @@ table{
 .navbar{
     position: absolute;
     width: 100%;
-    height: 8%;
+    height: 70px;
     background-color: #6d7492;
     opacity: 0.8;
 }
@@ -171,14 +175,9 @@ canvas{
     top: 0;
     z-index:-1;
 }
-
-@media screen and (max-width: 364px){
-    .navbar{
-    position: absolute;
-    width: 100%;
-    height: 15%;
-    background-color: #6d7492;
-    opacity: 0.8;
+@media screen and (min-width: 1000px){
+    .searchBox{
+        right: 30px;
     }
 }
 @media screen and (max-width: 880px){
@@ -186,11 +185,14 @@ canvas{
         top: 50px;
     }
     .navbar{
-        height: 14%;
+        height: 130px;
     }
 }
-@media screen and (min-width: 1000px){
-    .searchBox{
-        right: 30px;
-    }
+@media screen and (max-width:474px){
+  .navbar{
+    height: 190px;
+  }
+  #searchListWrapper{
+    top: 117px;
+  }
 }
